@@ -340,10 +340,12 @@ net.Receive("DL_SendForgive", function()
 	end
 end)
 
-net.Receive("DL_Answering_global", function(_len)
+net.Receive("DL_Answering_global", function()
 	local nick = net.ReadString()
 	local ply = LocalPlayer()
-	if not ply:IsActive() then
+	if ply:Alive() then
+		chat.AddText(Color(255,62,62), "A player is answering to their reports.")
+elseif ply:IsSpec() or !ply:Alive() then
 		chat.AddText(Color(255,62,62), nick, color_white, " is answering to their reports.")
 	end
 end)
